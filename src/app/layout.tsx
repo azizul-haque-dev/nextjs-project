@@ -1,4 +1,5 @@
-import Navbar from "@/components/Navbar";
+// app/layout.tsx or app/rootLayout.tsx
+import NavbarClientWrapper from "@/components/NavbarClientWrapper";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -20,15 +21,15 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en" className="dark">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Navbar />
+        <NavbarClientWrapper />
         {children}
       </body>
     </html>
