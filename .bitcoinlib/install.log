@@ -1,0 +1,12 @@
+BitcoinLib installed, check further logs in bitcoinlib.log
+
+If you remove this file all settings will be reset again to the default settings. This might be usefull after an update or when problems occur.
+
+Installation parameters. Include this parameters when reporting bugs and issues:
+Bitcoinlib version: 0.4.14
+Installation date : 2023-03-05T04:15:18.630874
+Python            : 3.10.10
+Compiler          : MSC v.1929 64 bit (AMD64)
+Build             : ('tags/v3.10.10:aad5f6a', 'Feb  7 2023 17:20:36')
+OS Version        : 10.0.22621
+Platform          : Windows-10-10.0.22621-SP0
