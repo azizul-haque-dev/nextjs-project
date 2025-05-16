@@ -1,4 +1,4 @@
-// app/layout.tsx or app/rootLayout.tsx
+// app/layout.tsx
 import NavbarClientWrapper from "@/components/NavbarClientWrapper";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
