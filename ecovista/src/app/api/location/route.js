@@ -1,6 +1,7 @@
-import { getLocations } from "./location.util";
+import { getLocations } from "./location-util";
 
 export async function GET() {
-  const data = await getLocations();
-  return Response.json(data);
+    const locationData = getLocations();
+
+    return Response.json(locationData);
 }

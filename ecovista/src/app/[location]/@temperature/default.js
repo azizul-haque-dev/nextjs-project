@@ -1,5 +1,5 @@
-function DefaultPage() {
-  return <div>temperature default page</div>;
-}
+const Default = () => {
+    return <div>Default Page</div>;
+};
 
-export default DefaultPage;
+export default Default;

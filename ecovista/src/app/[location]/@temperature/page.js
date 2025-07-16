@@ -1,5 +1,10 @@
-function Temperature() {
-  return <div>temperature page</div>;
-}
+import TemperatureComponent from "@/components/TemperatureComponent";
 
-export default Temperature;
+const TemperaturePage = ({
+    params: { location },
+    searchParams: { latitude, longitude },
+}) => {
+    return <TemperatureComponent lat={latitude} lon={longitude} />;
+};
+
+export default TemperaturePage;

@@ -13,10 +13,10 @@
     @apply relative grid min-h-screen max-w-full place-items-center overflow-y-auto bg-[#19243B];
   }
   .bg-img {
-    @apply absolute left-0 right-0 top-0 z-10 h-[100vh] w-full object-cover max-lg:fixed max-lg:h-screen;
+    @apply h-screen absolute left-0 right-0 top-0 z-10 w-full object-cover max-lg:fixed max-lg:h-screen;
   }
   .overlay {
-    @apply absolute left-0 right-0 top-0 z-20 h-[100vh] w-full bg-[url('../public/gradient.png')] bg-cover bg-left-top bg-no-repeat max-lg:fixed max-lg:h-screen;
+    @apply h-screen absolute left-0 right-0 top-0 z-20 w-full bg-[url('../assets/gradient.png')] bg-cover bg-center bg-no-repeat max-lg:fixed max-lg:h-screen;
   }
   .card {
     @apply relative h-full min-h-[290px] max-w-full rounded-2xl bg-[#293A4E] p-5 text-white;

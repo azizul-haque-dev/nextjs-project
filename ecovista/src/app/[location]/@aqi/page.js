@@ -1,5 +1,10 @@
-function AqiPage() {
-  return <div>Aqi page</div>;
-}
+import AQIComponent from "@/components/AQIComponent";
 
-export default AqiPage;
+const AQIPage = ({
+    params: { location },
+    searchParams: { latitude, longitude },
+  }) => {
+    return <AQIComponent lat={latitude} lon={longitude} />
+};
+
+export default AQIPage;

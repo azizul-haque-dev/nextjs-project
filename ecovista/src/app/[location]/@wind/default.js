@@ -1,5 +1,8 @@
-function DefaultPage() {
-  return <div>wind default page</div>;
+
+const Default = () => {
+  return (
+    <div>Default Page</div>
+  )
 }
 
-export default DefaultPage;
+export default Default
