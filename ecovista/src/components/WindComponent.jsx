@@ -4,7 +4,12 @@ import Card from "./Card";
 import WindIcon from "@/assets/icon_wind.png";
 import { getWindData } from "@/lib/weather-info";
 const WindComponent = async ({ lat, lon }) => {
-  const { speed, deg } = await getWindData(lat, lon);
+  const data = await getWindData(lat, lon);
+
+  if (!data) {
+    <p>No wind data available</p>;
+  }
+  const { speed, deg } = data;
 
   return (
     <Card>

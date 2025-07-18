@@ -4,8 +4,13 @@ import AirIcon from "../assets/icon_air_element.png";
 import Card from "./Card";
 
 const AQIComponent = async ({ lat, lon }) => {
-  const { main, components } = await getAQIData(lat, lon);
-  console.log({ main, components });
+  const data = await getAQIData(lat, lon);
+  if (!data) {
+    return <p>No AQI data available</p>;
+  }
+
+  const main = data?.main;
+  const components = data?.components;
 
   const getAQIRating = (aqi) => {
     switch (aqi) {
@@ -56,7 +61,7 @@ const AQIComponent = async ({ lat, lon }) => {
             Carbon Monoxide
           </div>
           <span className="text-right text-sm text-white lg:text-base">
-            {components.co} µg/m³
+            {components?.co} µg/m³
           </span>
         </div>
         <div className="flex items-center justify-between gap-4">
@@ -71,7 +76,7 @@ const AQIComponent = async ({ lat, lon }) => {
             Nitric Monoxide
           </div>
           <span className="text-right text-sm text-white lg:text-base">
-            {components.no} μg/m3
+            {components?.no} μg/m3
           </span>
         </div>
         <div className="flex items-center justify-between gap-4">
@@ -86,7 +91,7 @@ const AQIComponent = async ({ lat, lon }) => {
             Nitrogen Dioxide
           </div>
           <span className="text-right text-sm text-white lg:text-base">
-            {components.no2} μg/m3
+            {components?.no2} μg/m3
           </span>
         </div>
         <div className="flex items-center justify-between gap-4">
@@ -101,7 +106,7 @@ const AQIComponent = async ({ lat, lon }) => {
             Ozone
           </div>
           <span className="text-right text-sm text-white lg:text-base">
-            {components.o3} μg/m3
+            {components?.o3} μg/m3
           </span>
         </div>
         <div className="flex items-center justify-between gap-4">
@@ -116,7 +121,7 @@ const AQIComponent = async ({ lat, lon }) => {
             Sulfur Dioxide
           </div>
           <span className="text-right text-sm text-white lg:text-base">
-            {components.so2} μg/m3
+            {components?.so2} μg/m3
           </span>
         </div>
         <div className="flex items-center justify-between gap-4">
@@ -131,7 +136,7 @@ const AQIComponent = async ({ lat, lon }) => {
             PM2.5
           </div>
           <span className="text-right text-sm text-white lg:text-base">
-            {components.pm2_5} μg/m3
+            {components?.pm2_5} μg/m3
           </span>
         </div>
       </div>

@@ -4,7 +4,12 @@ import TemeratureIcon from "../assets/icon_tempareture.png";
 import Card from "./Card";
 
 const TemperatureComponent = async ({ lat, lon }) => {
-  const { temp, feels_like } = await getTemperatureData(lat, lon);
+  const data = await getTemperatureData(lat, lon);
+  if (!data) {
+    <p>No temperature data available</p>;
+  }
+
+  const { temp, feels_like } = data;
 
   return (
     <Card>

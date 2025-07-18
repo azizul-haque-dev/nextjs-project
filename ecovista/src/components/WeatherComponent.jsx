@@ -4,7 +4,13 @@ import RainIcon from "../assets/icon_rain.png";
 import Card from "./Card";
 
 const WeatherComponent = async ({ lat, lon }) => {
-  const { main, description } = await getWeatherData(lat, lon);
+  const data = await getWeatherData(lat, lon);
+
+  if (!data) {
+    <p>No weather data available</p>;
+  }
+
+  const { main, description } = data;
 
   return (
     <Card>
