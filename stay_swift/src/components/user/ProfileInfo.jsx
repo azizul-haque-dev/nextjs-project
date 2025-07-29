@@ -16,7 +16,7 @@ const ProfileInfo = async () => {
             className="rounded-full"
           />
         ) : (
-          firtsLater
+          firtsLater && firstLater
         )}
       </div>
 
