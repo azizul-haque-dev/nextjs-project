@@ -1,7 +1,10 @@
+import { auth } from "@/auth";
 import Image from "next/image";
 import Link from "next/link";
+import Logout from "./auth/Logout";
 
-const Navbar = ({ children, isHome }) => {
+const Navbar = async ({ children, isHome }) => {
+  const session = await auth();
   return (
     <nav>
       <Link href="/">
@@ -31,7 +34,13 @@ const Navbar = ({ children, isHome }) => {
         </li>
 
         <li>
-          {isHome ? (
+          {session?.user ? (
+            <div>
+              <span className="mx-1">{session.user.name} </span>
+              <span>|</span>
+              <Logout />
+            </div>
+          ) : isHome ? (
             <Link href="/login" className="login">
               Login
             </Link>
