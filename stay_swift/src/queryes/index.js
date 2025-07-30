@@ -1,10 +1,15 @@
+import { bookingModel } from "@/models/bookings.models";
 import { hotelModel } from "@/models/hotels-model";
 import { ratingModel } from "@/models/ratings.model";
 import { reviewModel } from "@/models/reviews.model";
+import { isDateInBetween } from "@/utils";
 
-export async function getAllHotels() {
-  const hotels = await hotelModel
-    .find()
+export async function getAllHotels(destination, checkin, checkout) {
+  console.log("getAllHotels", destination, checkin, checkout);
+  const regex = new RegExp(destination, "i");
+
+  const hotelsByDestination = await hotelModel
+    .find({ city: { $regex: regex } })
     .select([
       "thumbNailUrl",
       "name",
@@ -15,11 +20,34 @@ export async function getAllHotels() {
       "shortDescription"
     ])
     .lean();
-  return hotels;
+  let allHotels = hotelsByDestination;
+
+  if (checkin && checkout) {
+    allHotels = await Promise.all(
+      allHotels.map(async (hotel) => {
+        const bookings = await findBookings(hotel._id, checkin, checkout);
+        if (bookings) {
+          hotel["isBooked"] = true;
+        } else {
+          hotel["isBooked"] = false;
+        }
+        return hotel;
+      })
+    );
+  }
+  return allHotels;
 }
 
-export async function singleHotel(id) {
+export async function singleHotel(id, checkin, checkout) {
   const hotel = await hotelModel.findById(id);
+  if (checkin && checkout) {
+    const isFound = await findBookings(id, checkin, checkout);
+    if (isFound) {
+      hotel["isBooked"] = true;
+    } else {
+      hotel["isBooked"] = false;
+    }
+  }
   return hotel;
 }
 
@@ -30,4 +58,18 @@ export async function getRatingForHotel(hotelId) {
 export async function getReviewsForHotel(hotelId) {
   const reviews = await reviewModel.find({ hotelId });
   return reviews;
+}
+async function findBookings(hotelId, checkin, checkout) {
+  const matches = await bookingModel.find({
+    hotelId
+  });
+
+  const found = matches.find((mathch) => {
+    return (
+      isDateInBetween(checkin, mathch.checkin, mathch.checkout) ||
+      isDateInBetween(checkout, mathch.checkin, mathch.checkout)
+    );
+  });
+
+  return found;
 }
