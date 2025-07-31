@@ -19,7 +19,7 @@ async function HotelRating({ id }) {
     }
   };
   let avarageRating = 0;
-  console.log(ratings);
+
   if (ratings.length > 0) {
     avarageRating = ratings.reduce((items, current) => {
       return (items += current.rating / ratings.length);

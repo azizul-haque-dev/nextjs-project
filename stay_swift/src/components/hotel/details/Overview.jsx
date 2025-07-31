@@ -1,5 +1,4 @@
 const Overview = ({ overview }) => {
-  console.log(overview);
   return (
     <section>
       <div className="container py-8">

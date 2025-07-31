@@ -1,6 +1,32 @@
-const PaymentForm = () => {
+import { redirect } from "next/navigation";
+
+const PaymentForm = ({ id, checkin, checkout, loggedInUser }) => {
+  async function handleSubmit(formData) {
+    "use server";
+    const checkin = formData.get("checkin");
+    const checkout = formData.get("checkout");
+    const hotelId = id;
+    const userId = loggedInUser?._id;
+    const res = await fetch(process.env.NEXT_PUBLIC_URL + "/api/auth/payment", {
+      method: "POST",
+      body: JSON.stringify({
+        checkin,
+        checkout,
+        hotelId,
+        userId
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+    const data = await res.json();
+    console.log({ data });
+    if (data.success) {
+      redirect("/bookings");
+    }
+  }
   return (
-    <form className="my-8">
+    <form className="my-8" action={handleSubmit}>
       <div className="my-4 space-y-2">
         <label htmlFor="name" className="block">
           Name
@@ -8,6 +34,7 @@ const PaymentForm = () => {
         <input
           type="text"
           id="name"
+          value={loggedInUser?.name}
           className="w-full border border-[#CCCCCC]/60 py-1 px-2 rounded-md"
         />
       </div>
@@ -19,6 +46,7 @@ const PaymentForm = () => {
         <input
           type="email"
           id="email"
+          value={loggedInUser?.email}
           className="w-full border border-[#CCCCCC]/60 py-1 px-2 rounded-md"
         />
       </div>
@@ -26,14 +54,26 @@ const PaymentForm = () => {
       <div className="my-4 space-y-2">
         <span>Check in</span>
         <h4 className="mt-2">
-          <input type="date" name="checkin" id="checkin" />
+          <input
+            type="date"
+            name="checkin"
+            value={checkin}
+            id="checkin"
+            readOnly
+          />
         </h4>
       </div>
 
       <div className="my-4 space-y-2">
         <span>Checkout</span>
         <h4 className="mt-2">
-          <input type="date" name="checkout" id="checkout" />
+          <input
+            type="date"
+            name="checkout"
+            value={checkout.slice(0, checkout.length - 1)}
+            id="checkout"
+            readOnly
+          />
         </h4>
       </div>
 
@@ -55,6 +95,7 @@ const PaymentForm = () => {
         <input
           type="text"
           id="expiry"
+          autoComplete="on"
           className="w-full border border-[#CCCCCC]/60 py-1 px-2 rounded-md"
         />
       </div>

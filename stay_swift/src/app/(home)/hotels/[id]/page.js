@@ -8,7 +8,7 @@ const HotelDetailsPage = async ({
   searchParams: { checkin, checkout }
 }) => {
   const hotelInfo = await singleHotel(id, checkin, checkout);
-  console.log(hotelInfo.shortDescription);
+
   return (
     <>
       <Summary hotelInfo={hotelInfo} checkin={checkin} checkout={checkout} />
